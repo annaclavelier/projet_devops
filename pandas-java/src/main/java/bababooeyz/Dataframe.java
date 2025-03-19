@@ -1,10 +1,12 @@
 package bababooeyz;
 
-/**
- * Hello world!
- */
+import java.util.*;
+
 public class Dataframe {
-    public static void main(String[] args) {
-        System.out.println("Hello World!");
+    private Map <Integer, Column<?>> data;
+
+    public Dataframe(List<Column<?>> data){
+        for(int i = 0; i<data.size(); i++)
+            this.data.put(i, data.get(i));
     }
 }
