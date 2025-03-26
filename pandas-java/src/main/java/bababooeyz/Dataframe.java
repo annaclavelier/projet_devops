@@ -1,5 +1,6 @@
 package bababooeyz;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -17,6 +18,7 @@ public class Dataframe {
      * @param data A list of columns to be stored in the Dataframe.
      */
     public Dataframe(List<Column<?>> data) {
+        this.data = new HashMap<>();
         for (int i = 0; i < data.size(); i++) {
             this.data.put(i, data.get(i));
         }
