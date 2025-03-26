@@ -9,9 +9,9 @@ import java.util.List;
  * @param <T> The type of the values stored in the column.
  */
 public class Column<T> {
-    private String name; // The name of the column.
-    private Class<T> type; // The type of the values stored in the column.
-    private List<T> values; // The list of values stored in the column.
+    private String name;
+    private Class<T> type; 
+    private List<T> values; 
 
     /**
      * Constructs a new Column with the specified name and type.
