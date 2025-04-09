@@ -11,6 +11,7 @@ import org.mozilla.javascript.Context;
 import org.mozilla.javascript.ContextFactory;
 import org.mozilla.javascript.Scriptable;
 
+import java.util.Objects;
 import com.opencsv.CSVReader;
 
 /**
@@ -30,9 +31,9 @@ public class Dataframe {
         this.data = data;
     }
 
-
     /**
      * Constructs a Dataframe from a CSV file
+     * 
      * @param filePath the file path
      */
     public Dataframe(String filePath) {
@@ -67,7 +68,8 @@ public class Dataframe {
                 } else {
                     // Add values to corresponding columns
                     for (int i = 0; i < lines.length; i++) {
-                        addValueToColumn(data.get(i), convertValue(lines[i], data.get(i).getType()));                    }
+                        addValueToColumn(data.get(i), convertValue(lines[i], data.get(i).getType()));
+                    }
                 }
 
                 // increment count
@@ -80,9 +82,9 @@ public class Dataframe {
         }
     }
 
-
     /**
      * Add value to column safe
+     * 
      * @param <T>
      * @param column
      * @param value
@@ -94,6 +96,7 @@ public class Dataframe {
 
     /**
      * Determine the class of a string with matches of string
+     * 
      * @param text
      * @return Integer | Double | Boolean or by default String
      */
@@ -115,12 +118,13 @@ public class Dataframe {
 
     /**
      * Convert a string in the desired class
+     * 
      * @param text orginal string
      * @param type class chosen
      * @return string transformed in type desired
      */
     private Object convertValue(String text, Class<?> type) {
-        String text_trimmed= text.trim();
+        String text_trimmed = text.trim();
         if (type == Integer.class) {
             return Integer.parseInt(text_trimmed);
         } else if (type == Double.class) {
@@ -132,17 +136,18 @@ public class Dataframe {
         }
     }
 
-
     // Affiche tout le Dataframe
     public void showDataFrame() {
-        if (data.isEmpty()) return;
+        if (data.isEmpty())
+            return;
         int rowCount = data.get(0).getValues().size();
         printRows(0, rowCount);
     }
 
     // Affiche les premières N lignes
     public void showHead(int n) {
-        if (data.isEmpty()) return;
+        if (data.isEmpty())
+            return;
         int rowCount = data.get(0).getValues().size();
         int end = Math.min(n, rowCount);
         printRows(0, end);
@@ -150,7 +155,8 @@ public class Dataframe {
 
     // Affiche les dernières N lignes
     public void showTail(int n) {
-        if (data.isEmpty()) return;
+        if (data.isEmpty())
+            return;
         int rowCount = data.get(0).getValues().size();
         int start = Math.max(0, rowCount - n);
         printRows(start, rowCount);
@@ -273,7 +279,8 @@ public class Dataframe {
     }
     /**
      * Create a new dataframe with selection of lines
-     * @param indexes list of lines indexes to keep 
+     * 
+     * @param indexes list of lines indexes to keep
      * @return new dataframe with selection of lines
      */
     public Dataframe selectLines(List<Integer> indexes){
@@ -294,22 +301,22 @@ public class Dataframe {
 
     /**
      * Create a new dataframe with selection of columns
+     * 
      * @param columnNames list of the names of columns to keep
      * @return new dataframe with columns selected
      */
-    public Dataframe selectColumns(List<String> columnNames){
+    public Dataframe selectColumns(List<String> columnNames) {
         List<Column<?>> selection = new ArrayList<>();
 
-        for (int i=0;i< getData().size(); i++){
-            Column <?> col = getData().get(i);
-            if (columnNames.contains(col.getName())){
+        for (int i = 0; i < getData().size(); i++) {
+            Column<?> col = getData().get(i);
+            if (columnNames.contains(col.getName())) {
                 selection.add(col);
             }
         }
 
         return new Dataframe(selection);
     }
-
 
     public List<Column<?>> getData() {
         return data;
@@ -319,4 +326,19 @@ public class Dataframe {
         this.data = data;
     }
 
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o)
+            return true;
+        if (!(o instanceof Dataframe))
+            return false;
+        Dataframe dataframe = (Dataframe) o;
+        return this.getData().equals(dataframe.getData());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(data);
+    }
 }
