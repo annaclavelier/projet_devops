@@ -273,7 +273,7 @@ public class Dataframe {
     }
     /**
      * Create a new dataframe with selection of lines
-     * @param indexes lines indexes to keep 
+     * @param indexes list of lines indexes to keep 
      * @return new dataframe with selection of lines
      */
     public Dataframe selectLines(List<Integer> indexes){
@@ -287,6 +287,24 @@ public class Dataframe {
                 }
             }
             selection.add(col);
+        }
+
+        return new Dataframe(selection);
+    }
+
+    /**
+     * Create a new dataframe with selection of columns
+     * @param columnNames list of the names of columns to keep
+     * @return new dataframe with columns selected
+     */
+    public Dataframe selectColumns(List<String> columnNames){
+        List<Column<?>> selection = new ArrayList<>();
+
+        for (int i=0;i< getData().size(); i++){
+            Column <?> col = getData().get(i);
+            if (columnNames.contains(col.getName())){
+                selection.add(col);
+            }
         }
 
         return new Dataframe(selection);
