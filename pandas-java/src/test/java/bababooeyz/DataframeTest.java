@@ -28,20 +28,32 @@ public class DataframeTest {
         File f = new File("data/fruits.csv");
         Dataframe dataframe = new Dataframe(f.getAbsolutePath());
 
-        List <Column<?>> columnsExpected = new ArrayList<>(Arrays.asList(new Column<>("nom", String.class), new Column<>(null, null)));
         
-        List<Column<?>> columns = dataframe.getData();
+        Column<String> col = new Column<>("nom", String.class);
+        col.add("fraise");
+        col.add("abricot");
+        col.add("pomme");
+        col.setValues(new ArrayList<>(Arrays.asList("fraise", "abricot", "pomme")));
 
-        dataframe.printData();
+        Column<Double> col2 = new Column<>("prix", Double.class);
+        col2.setValues(new ArrayList<>(Arrays.asList(2.80,1.50,2.0)));
+
+        Column<Integer> col3 = new Column<>("stock", Integer.class);
+        col3.setValues(new ArrayList<>(Arrays.asList(150,3000,420)));
+
+        List <Column<?>> columnsExpected = new ArrayList<>(Arrays.asList(col, col2, col3));
+        
+        List<Column<?>> columnsActual = dataframe.getData();
 
         // should be equal columns size
-        assertEquals(columnNames.size(), columns.size());
-        // should be same columns name
-        for(int i =0; i< columns.size(); i++){
-            assertEquals( columnNames.get(i), columns.get(i).getName());
+        assertEquals(columnsExpected.size(), columnsActual.size());
+        // checking columns are the same
+        for(int i =0; i< columnsActual.size(); i++){
+            assertEquals( columnsExpected.get(i).getName(), columnsActual.get(i).getName());
+            assertEquals(columnsExpected.get(i).getValues(), columnsActual.get(i).getValues());
+            assertEquals(columnsExpected.get(i).getType(), columnsActual.get(i).getType());
         }
 
         
-
     }
 }
