@@ -47,4 +47,23 @@ public class Column<T> {
     public T getValue(int index){
         return values.get(index);
     }
+
+    /**
+     * Retrieves the type of values stored in the column.
+     * 
+     * @return The class type of the column.
+     */
+    public Class<T> getType(){
+        return type;
+    }
+
+    /**
+     * Retrieves the name of the column.
+     * 
+     * @return Column name.
+     */
+    public String getName(){
+        return name;
+    }
+
 }
