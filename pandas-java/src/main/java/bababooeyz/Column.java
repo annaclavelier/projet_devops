@@ -42,27 +42,22 @@ public class Column<T> {
         return values.get(index);
     }
 
-    public String getName(){
-        return name;
-    }
-
+    /**
+     * Retrieves the type of values stored in the column.
+     * 
+     * @return The class type of the column.
+     */
     public Class<T> getType(){
         return type;
     }
 
-    public List<T> getValues(){
-        return values;
+    /**
+     * Retrieves the name of the column.
+     * 
+     * @return Column name.
+     */
+    public String getName(){
+        return name;
     }
 
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public void setType(Class<T> type) {
-        this.type = type;
-    }
-
-    public void setValues(List<T> values) {
-        this.values = values;
-    }
 }
