@@ -34,11 +34,11 @@ public class Dataframe {
         }
     }
 
-    public Map<Integer, Column<?>> getData() {
+    public List<Column<?>> getData() {
         return data;
     }
 
-    public void setData(Map<Integer, Column<?>> data) {
+    public void setData(List<Column<?>> data) {
         this.data = data;
     }
 }
