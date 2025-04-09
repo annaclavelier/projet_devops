@@ -86,7 +86,7 @@ public class Column<T> {
      * @throws IllegalArgumentException if the type is not Comparable or if the list is empty.
      */
     @SuppressWarnings("unchecked")
-    public T getMaxValue() throws IllegalArgumentException{
+    public T getMax() throws IllegalArgumentException{
         // Verify that the column type is comparable
         if (Comparable.class.isAssignableFrom(type)) {
             if (values.isEmpty()) {
@@ -115,7 +115,7 @@ public class Column<T> {
      * @throws IllegalArgumentException if the type is not Comparable or if the list is empty.
      */
     @SuppressWarnings("unchecked")
-    public T getMinValue() throws IllegalArgumentException{
+    public T getMin() throws IllegalArgumentException{
         // Verify that the column type is comparable
         if (Comparable.class.isAssignableFrom(type)) {
             if (values.isEmpty()) {
@@ -133,6 +133,28 @@ public class Column<T> {
         }
         else {
             throw new IllegalArgumentException("Column type " + type.getSimpleName() + " is not Comparable.");
+        }
+    }
+    /**
+     * Returns the average value in the column if its type is numeric.
+     *
+     * @return The average of the values in the column.
+     * @throws IllegalArgumentException If the column's type is not numeric or is Empty.
+     */
+    public double getAverage(){
+        // Verify that the column type is numeric
+        if (!(Number.class.isAssignableFrom(type))) {
+            throw new IllegalArgumentException("Column type " + type.getName() + " is not numeric.");
+        }
+        else{
+            if (values.isEmpty()) {
+                throw new IllegalArgumentException("Column " + name +" is empty.");
+            }
+            double sum = 0;
+            for (T value : values) {
+                sum += ((Number) value).doubleValue();
+            }
+            return sum / values.size();
         }
     }
 }
