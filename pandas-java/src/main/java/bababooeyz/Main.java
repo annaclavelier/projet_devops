@@ -17,6 +17,6 @@ public class Main {
         Dataframe df = new Dataframe(Arrays.asList(col1, col2));
 
         // Call ShowDataFrame
-        df.ShowDataFrame(df);
+        df.showHead(1);
     }
 }

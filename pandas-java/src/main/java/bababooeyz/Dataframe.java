@@ -19,20 +19,45 @@ public class Dataframe {
         this.data = data;
     }
 
-    public void ShowDataFrame(Dataframe df) {
-        // afficher les colonnes
-        for (int i = 0; i < df.data.size(); i++) {
-            System.out.print(df.data.get(i).getName() + " ");
+    // Affiche tout le Dataframe
+    public void showDataFrame() {
+        if (data.isEmpty()) return;
+        int rowCount = data.get(0).getValues().size();
+        printRows(0, rowCount);
+    }
+
+    // Affiche les premières N lignes
+    public void showHead(int n) {
+        if (data.isEmpty()) return;
+        int rowCount = data.get(0).getValues().size();
+        int end = Math.min(n, rowCount);
+        printRows(0, end);
+    }
+
+    // Affiche les dernières N lignes
+    public void showTail(int n) {
+        if (data.isEmpty()) return;
+        int rowCount = data.get(0).getValues().size();
+        int start = Math.max(0, rowCount - n);
+        printRows(start, rowCount);
+    }
+
+    private void printRows(int start, int end) {
+        // Afficher les noms de colonnes
+        for (Column<?> column : data) {
+            System.out.print(column.getName() + " ");
         }
         System.out.println();
-        // afficher les valeurs
-        for (int i = 0; i < df.data.get(0).getValues().size(); i++) {
-            for (int j = 0; j < df.data.size(); j++) {
-                System.out.print(df.data.get(j).getValues().get(i) + " ");
+
+        // Afficher les lignes entre start (inclus) et end (exclus)
+        for (int i = start; i < end; i++) {
+            for (Column<?> column : data) {
+                System.out.print(column.getValue(i) + " ");
             }
             System.out.println();
         }
     }
+
 
     public List<Column<?>> getData() {
         return data;
