@@ -30,3 +30,6 @@ jobs:
 
     - name: Build and run tests
       run: mvn -B -f pandas-java/pom.xml clean verify
+
+    - name: Generate JaCoCo coverage report
+      run: mvn -f pandas-java/pom.xml jacoco:report
