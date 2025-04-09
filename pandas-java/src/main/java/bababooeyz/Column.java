@@ -52,6 +52,15 @@ public class Column<T> {
     }
 
     /**
+     * Sets the values of the column.
+     * 
+     * @param values A list of values to set in the column.
+     */
+    public void setValues(List<T> values){
+        this.values = values;
+    }
+
+    /**
      * Retrieves the type of values stored in the column.
      * 
      * @return The class type of the column.
