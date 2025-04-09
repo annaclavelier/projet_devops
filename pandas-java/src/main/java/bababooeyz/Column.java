@@ -38,14 +38,26 @@ public class Column<T> {
         values.add(value);
     }
 
-    /**
-     * Retrieves the value at the specified index in the column.
-     * 
-     * @param index The index of the value to retrieve.
-     * @return The value at the specified index.
-     */
     public T getValue(int index){
         return values.get(index);
+    }
+
+    /**
+     * Retrieves the values stored in the column.
+     * 
+     * @return A list of values in the column.
+     */
+    public List<T> getValues(){
+        return values;
+    }
+
+    /**
+     * Sets the values of the column.
+     * 
+     * @param values A list of values to set in the column.
+     */
+    public void setValues(List<T> values){
+        this.values = values;
     }
 
     /**
