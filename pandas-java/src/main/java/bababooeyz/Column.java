@@ -43,6 +43,15 @@ public class Column<T> {
     }
 
     /**
+     * Retrieves the values stored in the column.
+     * 
+     * @return A list of values in the column.
+     */
+    public List<T> getValues(){
+        return values;
+    }
+
+    /**
      * Retrieves the type of values stored in the column.
      * 
      * @return The class type of the column.
