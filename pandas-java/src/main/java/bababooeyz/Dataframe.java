@@ -50,7 +50,7 @@ public class Dataframe {
                 if (countLine == 0) {
                     // remove whitespaces for columns names
                     for (int i = 0; i < lines.length; i++) {
-                        lines[i] = lines[i].replaceAll("\\s", "");
+                        lines[i] = lines[i].trim();
                     }
                     columnNames = lines;
 
@@ -58,16 +58,14 @@ public class Dataframe {
 
                     // Determine type and add first line
                     for (int i = 0; i < lines.length; i++) {
-                        Class<?> type = determineTypeFromString(lines[i]);
+                        Class<?> type = determineTypeFromString(lines[i].trim());
                         data.add(new Column<>(columnNames[i], type));
-                        data.get(i).add(convertValue(lines[i], type));
+                        addValueToColumn(data.get(i), convertValue(lines[i], type));
                     }
                 } else {
                     // Add values to corresponding columns
                     for (int i = 0; i < lines.length; i++) {
-                        Object value = convertValue(lines[i], data.get(i).getType());
-                        data.get(i).add(value);
-                    }
+                        addValueToColumn(data.get(i), convertValue(lines[i], data.get(i).getType()));                    }
                 }
 
                 // increment count
@@ -78,6 +76,18 @@ public class Dataframe {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+
+    /**
+     * Add value to column safe
+     * @param <T>
+     * @param column
+     * @param value
+     */
+    private <T> void addValueToColumn(Column<?> column, Object value) {
+        Column<T> typedColumn = (Column<T>) column;
+        typedColumn.add((T) value);
     }
 
     /**
@@ -94,7 +104,7 @@ public class Dataframe {
             return Double.class;
         } else if (text.equalsIgnoreCase("true") || text.equalsIgnoreCase("false")) {
             // Boolean
-            return Boolean.class; // Booléen
+            return Boolean.class;
         } else {
             // else default string
             return String.class;
@@ -108,27 +118,16 @@ public class Dataframe {
      * @return string transformed in type desired
      */
     private Object convertValue(String text, Class<?> type) {
+        String text_trimmed= text.trim();
         if (type == Integer.class) {
-            return Integer.parseInt(text);
+            return Integer.parseInt(text_trimmed);
         } else if (type == Double.class) {
-            return Double.parseDouble(text);
+            return Double.parseDouble(text_trimmed);
         } else if (type == Boolean.class) {
-            return Boolean.parseBoolean(text);
+            return Boolean.parseBoolean(text_trimmed);
         } else {
             return text;
         }
-    }
-
-    public void printData() {
-
-        for (Column<?> col : this.data) {
-            System.out.print(col.getName() + " -> ");
-            for (int i = 0; i < col.getValues().size(); i++) {
-                System.out.print(col.getValue(i) + ";");
-            }
-            System.out.println();
-        }
-
     }
 
 }
