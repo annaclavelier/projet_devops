@@ -78,4 +78,61 @@ public class Column<T> {
         return name;
     }
 
+    /**
+     * Returns the maximum value of the column if its type is comparable.
+     *
+     *
+     * @return The maximum value from the list of values.
+     * @throws IllegalArgumentException if the type is not Comparable or if the list is empty.
+     */
+    @SuppressWarnings("unchecked")
+    public T getMaxValue() throws IllegalArgumentException{
+        // Verify that the column type is comparable
+        if (Comparable.class.isAssignableFrom(type)) {
+            if (values.isEmpty()) {
+                throw new IllegalArgumentException("Column " + name +" is empty.");
+            }
+            // Initialize the max value with the first element
+            T max = values.get(0);
+            // Find max
+            for (T value : values) {
+                if (((Comparable<T>) value).compareTo(max) > 0) {
+                    max = value;
+                }
+            }
+            return max;
+        }
+        else {
+            throw new IllegalArgumentException("Column type " + type.getSimpleName() + " is not Comparable.");
+        }
+    }
+
+    /**
+     * Returns the minimum value of the column if its type is comparable.
+     *
+     *
+     * @return The minumum value from the list of values.
+     * @throws IllegalArgumentException if the type is not Comparable or if the list is empty.
+     */
+    @SuppressWarnings("unchecked")
+    public T getMinValue() throws IllegalArgumentException{
+        // Verify that the column type is comparable
+        if (Comparable.class.isAssignableFrom(type)) {
+            if (values.isEmpty()) {
+                throw new IllegalArgumentException("Column " + name +" is empty.");
+            }
+            // Initialize the min value with the first element
+            T min = values.get(0);
+            // Find min
+            for (T value : values) {
+                if (((Comparable<T>) value).compareTo(min) < 0) {
+                    min = value;
+                }
+            }
+            return min;
+        }
+        else {
+            throw new IllegalArgumentException("Column type " + type.getSimpleName() + " is not Comparable.");
+        }
+    }
 }
