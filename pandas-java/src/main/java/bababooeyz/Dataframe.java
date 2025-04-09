@@ -287,13 +287,18 @@ public class Dataframe {
         List<Column<?>> selection = new ArrayList<>();
 
         for (int i=0;i< getData().size(); i++){
-            Column <?> col = getData().get(i);
-            for (int j=0; j < col.getValues().size(); j++){
-                if (!indexes.contains(j)){
-                    col.getValues().remove(j);
+            Column <?> colOriginal = getData().get(i);
+            Column <?> colNew = new Column<>(colOriginal.getName(), colOriginal.getType());
+            List <Object> list = new ArrayList<>();
+
+            for (int j=0; j < colOriginal.getValues().size(); j++){
+                if (indexes.contains(j)){
+                    list.add(colOriginal.getValue(j));
                 }
             }
-            selection.add(col);
+
+            ((Column<Object>) colNew).setValues(list);
+            selection.add(colNew);
         }
 
         return new Dataframe(selection);
