@@ -4,13 +4,10 @@ import java.util.Arrays;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.io.File;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 
 import org.junit.jupiter.api.Test;
 
@@ -141,10 +138,9 @@ public class DataframeTest {
     }
 
     @Test
-    public void dataFrameConstructionWithCsvFile(){
+    public void testDataFrameConstructorWithCsvFile(){
         File f = new File("data/fruits.csv");
         Dataframe dataframe = new Dataframe(f.getAbsolutePath());
-
         
         Column<String> col = new Column<>("nom", String.class);
         col.add("fraise");
@@ -173,4 +169,6 @@ public class DataframeTest {
 
         
     }
+
+
 }
