@@ -164,6 +164,37 @@ public class Dataframe {
         }
     }
 
+    /**
+     * Retrieves the maximum of column at a given index.
+     * 
+     * @param index Index of the column in the dataframe.
+     * @return Maximum value of the column.
+     * @throws IllegalArgumentException If column is empty or its type is not Comparable.
+     */
+    public Object getColumnMax(int index) throws IllegalArgumentException {
+        return data.get(index).getMax();
+    }
+
+    /**
+     * Retrieves the minimum of column at a given index.
+     * 
+     * @param index Index of the column in the dataframe.
+     * @return Minimum value of the column.
+     * @throws IllegalArgumentException If column is empty or its type is not Comparable.
+     */
+    public Object getColumnMin(int index) throws IllegalArgumentException {
+        return data.get(index).getMin();
+    }
+    /**
+     * Retrieves the average of column at a given index.
+     * 
+     * @param index Index of the column in the dataframe.
+     * @return average value of the column.
+     * @throws IllegalArgumentException If column is empty or its type is not Numeric.
+     */
+    public double getColumnAverage(int index) throws IllegalArgumentException {
+        return data.get(index).getAverage();
+    }
 
     public List<Column<?>> getData() {
         return data;
@@ -172,4 +203,5 @@ public class Dataframe {
     public void setData(List<Column<?>> data) {
         this.data = data;
     }
+
 }

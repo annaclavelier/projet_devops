@@ -78,4 +78,83 @@ public class Column<T> {
         return name;
     }
 
+    /**
+     * Returns the maximum value of the column if its type is comparable.
+     *
+     *
+     * @return The maximum value from the list of values.
+     * @throws IllegalArgumentException if the type is not Comparable or if the list is empty.
+     */
+    @SuppressWarnings("unchecked")
+    public T getMax() throws IllegalArgumentException{
+        // Verify that the column type is comparable
+        if (Comparable.class.isAssignableFrom(type)) {
+            if (values.isEmpty()) {
+                throw new IllegalArgumentException("Column " + name +" is empty.");
+            }
+            // Initialize the max value with the first element
+            T max = values.get(0);
+            // Find max
+            for (T value : values) {
+                if (((Comparable<T>) value).compareTo(max) > 0) {
+                    max = value;
+                }
+            }
+            return max;
+        }
+        else {
+            throw new IllegalArgumentException("Column type " + type.getSimpleName() + " is not Comparable.");
+        }
+    }
+
+    /**
+     * Returns the minimum value of the column if its type is comparable.
+     *
+     *
+     * @return The minumum value from the list of values.
+     * @throws IllegalArgumentException if the type is not Comparable or if the list is empty.
+     */
+    @SuppressWarnings("unchecked")
+    public T getMin() throws IllegalArgumentException{
+        // Verify that the column type is comparable
+        if (Comparable.class.isAssignableFrom(type)) {
+            if (values.isEmpty()) {
+                throw new IllegalArgumentException("Column " + name +" is empty.");
+            }
+            // Initialize the min value with the first element
+            T min = values.get(0);
+            // Find min
+            for (T value : values) {
+                if (((Comparable<T>) value).compareTo(min) < 0) {
+                    min = value;
+                }
+            }
+            return min;
+        }
+        else {
+            throw new IllegalArgumentException("Column type " + type.getSimpleName() + " is not Comparable.");
+        }
+    }
+    /**
+     * Returns the average value in the column if its type is numeric.
+     *
+     * @return The average of the values in the column.
+     * @throws IllegalArgumentException If the column's type is not numeric or is Empty.
+     */
+    public double getAverage(){
+        // Verify that the column type is numeric
+        if (!(Number.class.isAssignableFrom(type))) {
+            throw new IllegalArgumentException("Column type " + type.getName() + " is not numeric.");
+        }
+        else{
+            if (values.isEmpty()) {
+                throw new IllegalArgumentException("Column " + name +" is empty.");
+            }
+            double sum = 0;
+            for (T value : values) {
+                sum += ((Number) value).doubleValue();
+            }
+            return sum / values.size();
+        }
+    }
 }
