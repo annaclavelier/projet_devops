@@ -39,6 +39,13 @@ jobs:
     - name: Generate JaCoCo coverage report
       run: mvn -f pandas-java/pom.xml jacoco:report
 
+    - name: Upload coverage reports to Codecov
+      uses: codecov/codecov-action@v5
+      with:
+        files: pandas-java/target/site/jacoco/jacoco.xml
+        token: ${{ secrets.CODECOV_TOKEN }}
+        fail_ci_if_error: true
+        
     - name: Deploy to GitHub Packages
       run: mvn -f pandas-java/pom.xml deploy
       env:
