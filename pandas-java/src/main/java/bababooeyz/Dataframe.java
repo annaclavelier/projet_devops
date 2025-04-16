@@ -3,6 +3,14 @@ package bababooeyz;
 import java.io.FileReader;
 import java.util.ArrayList;
 import java.util.List;
+
+import javax.script.ScriptEngine;
+import javax.script.ScriptEngineManager;
+
+import org.mozilla.javascript.Context;
+import org.mozilla.javascript.ContextFactory;
+import org.mozilla.javascript.Scriptable;
+
 import com.opencsv.CSVReader;
 
 /**
@@ -194,6 +202,64 @@ public class Dataframe {
      */
     public double getColumnAverage(int index) throws IllegalArgumentException {
         return data.get(index).getAverage();
+    }
+
+    public Dataframe selectLinesBoolean(String condition){
+        // Create a ContextFactory and get a Context from it
+        ContextFactory contextFactory = new ContextFactory();
+        Context context = contextFactory.enterContext();
+        try {
+            // Initialize the scope (environment) for the JavaScript execution
+            Scriptable scope = context.initStandardObjects();
+
+            // Get the maximum column depth to be able to index lines
+            int depth = data.stream().mapToInt(c -> c.getValues().size()).max().orElse(0);
+            List<Integer> matchingIndices = new ArrayList<>();
+
+            // Iterate over each row
+            for (int i = 0; i < depth; i++) {
+                // Put each column's value into the context (scope)
+                for (Column<?> col : data) {
+                    String colName = col.getName();
+                    Object value = i < col.getValues().size() ? col.getValues().get(i) : null;
+                    // Bind Java object (column value) to JavaScript variable
+                    scope.put(colName, scope, Context.toObject(value, scope));
+                }
+
+                try {
+                    // Evaluate the JavaScript condition expression
+                    Object result = context.evaluateString(scope, condition, "<cmd>", 1, null);
+                    if (Boolean.TRUE.equals(result)) {
+                        matchingIndices.add(i);
+                    }
+                }
+                catch (Exception e) {
+                    System.err.printf("⚠️ Error evaluating expression on row %d: %s%n", i, e.getMessage());
+                    // Optionally handle errors
+                }
+            }
+            // Build filtered result
+            List<Column<?>> filtered = new ArrayList<>();
+            for (Column<?> col : data) {
+                List<Object> newValues = new ArrayList<>();
+                for (int i : matchingIndices) {
+                    newValues.add(i < col.getValues().size() ? col.getValues().get(i) : null);
+                }
+                Column <Object> tmp = new Column<>(col.getName(), Object.class);
+                tmp.setValues(newValues);
+                filtered.add(tmp);
+            }
+            return new Dataframe(filtered);
+        }
+        catch (Exception ex) {
+            System.err.println("❌ Failed to evaluate condition due to a top-level error:");
+            ex.printStackTrace();
+            return null; // Return null if internal error
+        } finally {
+            if (context != null) {
+                Context.exit();
+            }
+        }
     }
 
     public List<Column<?>> getData() {

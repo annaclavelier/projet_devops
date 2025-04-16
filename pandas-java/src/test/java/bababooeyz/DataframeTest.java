@@ -173,4 +173,27 @@ public class DataframeTest {
 
         
     }
+    @Test
+    public void testDataframeAdvancedSelection(){
+        Column<String> col1 = new Column<>("name", String.class);
+        col1.add("Alice");
+        col1.add("Bob");
+        col1.add("Charlie");
+
+        Column<Integer> col2 = new Column<>("age", Integer.class);
+        col2.add(30);
+        col2.add(25);
+        col2.add(35);
+
+        // Create dataframe
+        Dataframe df = new Dataframe(Arrays.asList(col1, col2));
+        Column<Object> col1_exp = new Column<>("name", Object.class);
+        col1_exp.add("Alice");
+        Column<Object> col2_exp = new Column<>("age", Object.class);
+        col2_exp.add(30);
+        Dataframe res = df.selectLinesBoolean("age > 0 && name.startsWith('A')");
+        // point to point of values verification
+        assertEquals("Alice", res.getData().get(0).getValue(0));
+        assertEquals(30, res.getData().get(1).getValue(0));
+    }
 }

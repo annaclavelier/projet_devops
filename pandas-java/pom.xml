@@ -61,6 +61,11 @@
       <version>1.0.0</version>
       <scope>test</scope>
     </dependency>
+    <dependency>
+        <groupId>org.mozilla</groupId>
+        <artifactId>rhino</artifactId>
+        <version>1.7.15</version>
+    </dependency>
   </dependencies>
 
   <build>
