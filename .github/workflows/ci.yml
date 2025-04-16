@@ -73,6 +73,6 @@ jobs:
         context: .
         file: ./Dockerfile
         push: true
-        tags: clavanna/pandas-java-demo:latest
+        tags: annaclavelier/pandas-java-demo:latest
 
     
