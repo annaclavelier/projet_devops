@@ -164,6 +164,60 @@ public class DataframeTest {
             assertEquals(columnsExpected.get(i).getType(), columnsActual.get(i).getType());
         }
 
+    }
+
+    @Test
+    public void testSelectionLines() {
+
+        // Setup columns
+        Column<String> col1 = new Column<>("Nom", String.class);
+        col1.add("Alice");
+        col1.add("Bob");
+        col1.add("Charlie");
+
+        Column<Integer> col2 = new Column<>("Âge", Integer.class);
+        col2.add(30);
+        col2.add(25);
+        col2.add(35);
+
+        Column<String> col1_ = new Column<>("Nom", String.class);
+        col1_.add("Charlie");
+
+        Column<Integer> col2_ = new Column<>("Âge", Integer.class);
+        col2_.add(35);
+
+        // Create dataframe
+        Dataframe df = new Dataframe(Arrays.asList(col1, col2));
+
+        Dataframe df_expected = new Dataframe(Arrays.asList(col1_,col2_));
+
+        Dataframe dfSelected = df.selectLines(Arrays.asList(2));
+
+        assertEquals(df_expected, dfSelected);
+
+    }
+
+    @Test
+    public void testSelectionColumns() {
+        // Setup columns
+        Column<String> col1 = new Column<>("Nom", String.class);
+        col1.add("Alice");
+        col1.add("Bob");
+        col1.add("Charlie");
+
+        Column<Integer> col2 = new Column<>("Âge", Integer.class);
+        col2.add(30);
+        col2.add(25);
+        col2.add(35);
+
+        // Create dataframe
+        Dataframe df = new Dataframe(Arrays.asList(col1, col2));
+
+        Dataframe df_expected = new Dataframe(Arrays.asList(col1));
+
+        Dataframe dfSelected = df.selectColumns(Arrays.asList("Nom"));
+
+        assertEquals(df_expected, dfSelected);
         
     }
 

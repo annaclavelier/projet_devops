@@ -206,7 +206,6 @@ public class Dataframe {
     public double getColumnAverage(int index) throws IllegalArgumentException {
         return data.get(index).getAverage();
     }
-
     /**
      * Create a new dataframe with selection of lines
      * 
@@ -252,7 +251,7 @@ public class Dataframe {
 
         return new Dataframe(selection);
     }
-
+  
     /**
      * Filters the rows of the current {@link Dataframe} based on a Boolean condition.
      * Only rows where the condition evaluates to {@code true} are retained.
@@ -330,7 +329,6 @@ public class Dataframe {
         this.data = data;
     }
 
-
     @Override
     public boolean equals(Object o) {
         if (this == o)
@@ -345,4 +343,5 @@ public class Dataframe {
     public int hashCode() {
         return Objects.hash(data);
     }
+
 }
