@@ -179,7 +179,7 @@ A compléter
 ## Exécution locale
 
 ```bash
-# Se placer dans le bon répertoir
+# Se placer dans le bon répertoire
 cd pandas-java
 
 # Compilation
