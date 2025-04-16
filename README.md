@@ -10,6 +10,7 @@ Anna Clavelier - Maxim Frolov - Matthieu Rua
 
 [![codecov](https://codecov.io/github/annaclavelier/projet_devops/graph/badge.svg?token=SIMDFJQSIH)](https://codecov.io/github/annaclavelier/projet_devops)
 
+
 ![code style - camelCase](https://img.shields.io/badge/code_style-camel_Case-blue)
 
 ## Fonctionnalités de la bibliothèque
