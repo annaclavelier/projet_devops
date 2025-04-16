@@ -27,6 +27,9 @@ jobs:
         with:
           java-version: '17'
           distribution: 'temurin'
+      
+      - name: Move in correct directory
+        run: cd pandas-java
 
       - name: Build site with Maven
         run: mvn site
