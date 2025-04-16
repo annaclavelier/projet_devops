@@ -83,8 +83,11 @@ Le développement de la bibliothèque a été réalisé en suivant les bonnes pr
 
 - Le dépôt principal est hébergé sur GitHub : [https://github.com/annaclavelier/projet_devops](https://github.com/annaclavelier/projet_devops)
 - Tous les membres du groupe ont été ajoutés comme **collaborateurs** avec droits de modification.
-- Le travail est organisé à l’aide de branches `feature` suivies de **Pull Requests** avec revue de code.
-
+- Le travail est organisé à l’aide de branches `feature` suivies de **Pull Requests** avec revue de code par au moins un autre collaborateur.
+- Les pull requests ne peuvent pas être merge si pas approuvé par au moins un des reviewers.
+- Les commits suivent la [convention de nommage suivante](https://www.conventionalcommits.org/en/v1.0.0/).
+- Les commits et les commentaires sont en anglais.
+- Sur chaque branche de fonctionnalité codée, on teste ce qu'on a implémenté.
 ---
 
 ### 4.3 Intégration continue
