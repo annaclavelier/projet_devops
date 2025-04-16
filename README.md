@@ -1,17 +1,15 @@
 # Projet Devops : Librairie pandas en Java
 
+| | |
+|---|--|
+| Pipeline | ![CI - Test](https://github.com/annaclavelier/projet_devops/actions/workflows/ci.yml/badge.svg)  |
+| Couverture code | [![codecov](https://codecov.io/github/annaclavelier/projet_devops/graph/badge.svg?token=SIMDFJQSIH)](https://codecov.io/github/annaclavelier/projet_devops) |
+|  Convention | ![code style - camelCase](https://img.shields.io/badge/code_style-camel_Case-blue)| 
+
+
 ## Auteurs
 
 Anna Clavelier - Maxim Frolov - Matthieu Rua
-
-## Aperçu du projet
-
-![CI - Test](https://github.com/annaclavelier/projet_devops/actions/workflows/ci.yml/badge.svg)
-
-[![codecov](https://codecov.io/github/annaclavelier/projet_devops/graph/badge.svg?token=SIMDFJQSIH)](https://codecov.io/github/annaclavelier/projet_devops)
-
-
-![code style - camelCase](https://img.shields.io/badge/code_style-camel_Case-blue)
 
 ## Fonctionnalités de la bibliothèque
 
@@ -158,7 +156,7 @@ Exemple de résultat visible ici : http://34.78.38.172
 ## 4.8 Badges
 
 Nous avons intégré plusieurs **badges de qualité** dans le README :
-- État du pipeline GitHub Actions 
+- État du pipeline GitHub Actions principal (build, test, deploy)
 - Couverture de code via Codecov 
 - Style de nommage 
 
@@ -166,14 +164,19 @@ Nous avons intégré plusieurs **badges de qualité** dans le README :
 
 ## 4.9 Valorisation de la bibliothèque via GitHub Pages ou maven-site
 
-A compléter
+Nous avons déployé sur github pages le site généré par le plugin maven-site-plugin et nous y avons inclus le rapport de la javadoc (onglet reporting).
+Le workflow dédié au déploiement des github pages est dans le fichier `deploy-pages.yml`.
+
+Accessible [ici](https://annaclavelier.github.io/projet_devops/).
+
 
 ## Sections non encore réalisées (optionnelles)
 
--  **4.6 Livraison continue avec Docker**
 -  **4.10 Intégration d'autres services GitHub externes (Marketplace)**
 
 ---
+
+## Feedback
 
 
 
@@ -191,3 +194,6 @@ mvn test
 
 # Rapport de couverture
 mvn jacoco:report
+
+# Génération du site maven
+mvn site
