@@ -330,9 +330,7 @@ public class Dataframe {
 
     /**
      * Filters the rows of the current {@link Dataframe} based on a Boolean condition.
-     * <p>
-         Only rows where the condition evaluates to {@code true} are retained.
-     * </p>
+     * Only rows where the condition evaluates to {@code true} are retained.
      *
      *
      * @param condition A JavaScript expression to be evaluated for each row.
