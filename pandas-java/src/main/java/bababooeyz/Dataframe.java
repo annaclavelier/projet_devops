@@ -245,7 +245,6 @@ public class Dataframe {
                 }
                 catch (Exception e) {
                     System.err.printf("⚠️ Error evaluating expression on row %d: %s%n", i, e.getMessage());
-                    // Optionally handle errors
                 }
             }
             // Build filtered result
@@ -255,6 +254,7 @@ public class Dataframe {
                 for (int i : matchingIndices) {
                     newValues.add(i < col.getValues().size() ? col.getValues().get(i) : null);
                 }
+                // For now everything is bound to Object class
                 Column <Object> tmp = new Column<>(col.getName(), Object.class);
                 tmp.setValues(newValues);
                 filtered.add(tmp);
