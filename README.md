@@ -1,17 +1,15 @@
 # Projet Devops : Librairie pandas en Java
 
+| | |
+|---|--|
+| Pipeline | ![CI - Test](https://github.com/annaclavelier/projet_devops/actions/workflows/ci.yml/badge.svg)  |
+| Couverture code | [![codecov](https://codecov.io/github/annaclavelier/projet_devops/graph/badge.svg?token=SIMDFJQSIH)](https://codecov.io/github/annaclavelier/projet_devops) |
+|  Convention | ![code style - camelCase](https://img.shields.io/badge/code_style-camel_Case-blue)| 
+
+
 ## Auteurs
 
 Anna Clavelier - Maxim Frolov - Matthieu Rua
-
-## Aperçu du projet
-
-![CI - Test](https://github.com/annaclavelier/projet_devops/actions/workflows/ci.yml/badge.svg)
-
-[![codecov](https://codecov.io/github/annaclavelier/projet_devops/graph/badge.svg?token=SIMDFJQSIH)](https://codecov.io/github/annaclavelier/projet_devops)
-
-
-![code style - camelCase](https://img.shields.io/badge/code_style-camel_Case-blue)
 
 ## Fonctionnalités de la bibliothèque
 
@@ -85,8 +83,11 @@ Le développement de la bibliothèque a été réalisé en suivant les bonnes pr
 
 - Le dépôt principal est hébergé sur GitHub : [https://github.com/annaclavelier/projet_devops](https://github.com/annaclavelier/projet_devops)
 - Tous les membres du groupe ont été ajoutés comme **collaborateurs** avec droits de modification.
-- Le travail est organisé à l’aide de branches `feature` suivies de **Pull Requests** avec revue de code.
-
+- Le travail est organisé à l’aide de branches `feature` suivies de **Pull Requests** avec revue de code par au moins un autre collaborateur.
+- Les pull requests ne peuvent pas être merge si pas approuvé par au moins un des reviewers.
+- Les commits suivent la [convention de nommage suivante](https://www.conventionalcommits.org/en/v1.0.0/).
+- Les commits et les commentaires sont en anglais.
+- Sur chaque branche de fonctionnalité codée, on teste ce qu'on a implémenté.
 ---
 
 ### 4.3 Intégration continue
@@ -158,7 +159,7 @@ Exemple de résultat visible ici : http://34.78.38.172
 ## 4.8 Badges
 
 Nous avons intégré plusieurs **badges de qualité** dans le README :
-- État du pipeline GitHub Actions 
+- État du pipeline GitHub Actions principal (build, test, deploy)
 - Couverture de code via Codecov 
 - Style de nommage 
 
@@ -166,15 +167,29 @@ Nous avons intégré plusieurs **badges de qualité** dans le README :
 
 ## 4.9 Valorisation de la bibliothèque via GitHub Pages ou maven-site
 
-A compléter
+Nous avons déployé sur github pages le site généré par le plugin maven-site-plugin et nous y avons inclus le rapport de la javadoc (onglet reporting).
+Le workflow dédié au déploiement des github pages est dans le fichier `deploy-pages.yml`.
+
+Accessible [ici](https://annaclavelier.github.io/projet_devops/).
+
 
 ## Sections non encore réalisées (optionnelles)
 
--  **4.6 Livraison continue avec Docker**
 -  **4.10 Intégration d'autres services GitHub externes (Marketplace)**
 
 ---
 
+## Feedback
+
+Grâce à ce projet, nous avons réellement pu mettre en place la revue de code.
+Nous avions principalement utilisé GitLab donc cela variait un peu.
+
+La mise en place des workflows nous a appris beaucoup de chose.
+La configuration YAML n'est pas toujours évidente mais ça nous a permis de mieux comprendre l'intégration continue.
+
+Finalement on a beaucoup utilisé les Github Actions. 
+Pour les github pages, nous avions déjà testé mais avec un déploiement de branche.
+Cela nous a permis de voir d'autres manières de faire.
 
 
 ## Exécution locale
@@ -191,3 +206,6 @@ mvn test
 
 # Rapport de couverture
 mvn jacoco:report
+
+# Génération du site maven
+mvn site
