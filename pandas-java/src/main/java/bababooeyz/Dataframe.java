@@ -214,74 +214,7 @@ public class Dataframe {
     public double getColumnAverage(int index) throws IllegalArgumentException {
         return data.get(index).getAverage();
     }
-    /**
-     * Filters the rows of the current {@link Dataframe} based on a Boolean condition.
-     * Only rows where the condition evaluates to {@code true} are retained.
-     *
-     *
-     * @param condition A JavaScript expression to be evaluated for each row.
-     *                  Column names in the Dataframe can be used as variable names.
-     *                  The expression must return a Boolean value (true/false).
-     * @return A new {@link Dataframe} containing only the rows that match the condition.
-     *         If an error occurs, an {@code null} is returned.
-    */ 
-    public Dataframe selectLinesBoolean(String condition){
-        // Create a ContextFactory and get a Context from it
-        ContextFactory contextFactory = new ContextFactory();
-        Context context = contextFactory.enterContext();
-        try {
-            // Initialize the scope (environment) for the JavaScript execution
-            Scriptable scope = context.initStandardObjects();
 
-            // Get the maximum column depth to be able to index lines
-            int depth = data.stream().mapToInt(c -> c.getValues().size()).max().orElse(0);
-            List<Integer> matchingIndices = new ArrayList<>();
-
-            // Iterate over each row
-            for (int i = 0; i < depth; i++) {
-                // Put each column's value into the context (scope)
-                for (Column<?> col : data) {
-                    String colName = col.getName();
-                    Object value = i < col.getValues().size() ? col.getValues().get(i) : null;
-                    // Bind Java object (column value) to JavaScript variable
-                    scope.put(colName, scope, Context.toObject(value, scope));
-                }
-
-                try {
-                    // Evaluate the JavaScript condition expression
-                    Object result = context.evaluateString(scope, condition, "<cmd>", 1, null);
-                    if (Boolean.TRUE.equals(result)) {
-                        matchingIndices.add(i);
-                    }
-                }
-                catch (Exception e) {
-                    System.err.printf("⚠️ Error evaluating expression on row %d: %s%n", i, e.getMessage());
-                }
-            }
-            // Build filtered result
-            List<Column<?>> filtered = new ArrayList<>();
-            for (Column<?> col : data) {
-                List<Object> newValues = new ArrayList<>();
-                for (int i : matchingIndices) {
-                    newValues.add(i < col.getValues().size() ? col.getValues().get(i) : null);
-                }
-                // For now everything is bound to Object class
-                Column <Object> tmp = new Column<>(col.getName(), Object.class);
-                tmp.setValues(newValues);
-                filtered.add(tmp);
-            }
-            return new Dataframe(filtered);
-        }
-        catch (Exception e) {
-            System.err.println("❌ Failed to evaluate condition due to a top-level error:");
-            e.printStackTrace();
-            return null; // Return null if internal error
-        } finally {
-            if (context != null) {
-                Context.exit();
-            }
-        }
-    }
     /**
      * Create a new dataframe with selection of lines
      * 
