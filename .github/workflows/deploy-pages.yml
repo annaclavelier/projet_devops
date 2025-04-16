@@ -3,6 +3,8 @@ name: Deploy Maven Site to GitHub Pages
 on:
   push:
     branches: ["main"]
+  pull_request: 
+    branches: ["main"]
   workflow_dispatch:
 
 permissions:
@@ -27,14 +29,14 @@ jobs:
         with:
           java-version: '17'
           distribution: 'temurin'
-
+    
       - name: Build site with Maven
-        run: mvn site
+        run: mvn -f pandas-java/pom.xml site
 
       - name: Upload GitHub Pages artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: 'target/site'
+          path: 'pandas-java/target/site'
 
   deploy:
     needs: build
