@@ -13,17 +13,9 @@ import org.junit.jupiter.api.Test;
 import nl.altindag.console.ConsoleCaptor;
 
 /**
- * Unit test for simple App.
+ * Unit tests
  */
 public class DataframeTest {
-
-    /**
-     * Rigorous Test :-)
-     */
-    @Test
-    public void shouldAnswerWithTrue() {
-        assertTrue(true);
-    }
 
     @Test
     public void testShowDataFrameOutput() {
