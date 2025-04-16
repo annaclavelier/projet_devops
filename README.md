@@ -181,6 +181,15 @@ Accessible [ici](https://annaclavelier.github.io/projet_devops/).
 
 ## Feedback
 
+Grâce à ce projet, nous avons réellement pu mettre en place la revue de code.
+Nous avions principalement utilisé GitLab donc cela variait un peu.
+
+La mise en place des workflows nous a appris beaucoup de chose.
+La configuration YAML n'est pas toujours évidente mais ça nous a permis de mieux comprendre l'intégration continue.
+
+Finalement on a beaucoup utilisé les Github Actions. 
+Pour les github pages, nous avions déjà testé mais avec un déploiement de branche.
+Cela nous a permis de voir d'autres manières de faire.
 
 
 ## Exécution locale
