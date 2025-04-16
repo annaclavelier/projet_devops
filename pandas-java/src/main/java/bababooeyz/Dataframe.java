@@ -3,6 +3,7 @@ package bababooeyz;
 import java.io.FileReader;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import com.opencsv.CSVReader;
 
 /**
@@ -22,9 +23,9 @@ public class Dataframe {
         this.data = data;
     }
 
-
     /**
      * Constructs a Dataframe from a CSV file
+     * 
      * @param filePath the file path
      */
     public Dataframe(String filePath) {
@@ -59,7 +60,8 @@ public class Dataframe {
                 } else {
                     // Add values to corresponding columns
                     for (int i = 0; i < lines.length; i++) {
-                        addValueToColumn(data.get(i), convertValue(lines[i], data.get(i).getType()));                    }
+                        addValueToColumn(data.get(i), convertValue(lines[i], data.get(i).getType()));
+                    }
                 }
 
                 // increment count
@@ -72,9 +74,9 @@ public class Dataframe {
         }
     }
 
-
     /**
      * Add value to column safe
+     * 
      * @param <T>
      * @param column
      * @param value
@@ -86,6 +88,7 @@ public class Dataframe {
 
     /**
      * Determine the class of a string with matches of string
+     * 
      * @param text
      * @return Integer | Double | Boolean or by default String
      */
@@ -107,12 +110,13 @@ public class Dataframe {
 
     /**
      * Convert a string in the desired class
+     * 
      * @param text orginal string
      * @param type class chosen
      * @return string transformed in type desired
      */
     private Object convertValue(String text, Class<?> type) {
-        String text_trimmed= text.trim();
+        String text_trimmed = text.trim();
         if (type == Integer.class) {
             return Integer.parseInt(text_trimmed);
         } else if (type == Double.class) {
@@ -124,17 +128,18 @@ public class Dataframe {
         }
     }
 
-
     // Affiche tout le Dataframe
     public void showDataFrame() {
-        if (data.isEmpty()) return;
+        if (data.isEmpty())
+            return;
         int rowCount = data.get(0).getValues().size();
         printRows(0, rowCount);
     }
 
     // Affiche les premières N lignes
     public void showHead(int n) {
-        if (data.isEmpty()) return;
+        if (data.isEmpty())
+            return;
         int rowCount = data.get(0).getValues().size();
         int end = Math.min(n, rowCount);
         printRows(0, end);
@@ -142,7 +147,8 @@ public class Dataframe {
 
     // Affiche les dernières N lignes
     public void showTail(int n) {
-        if (data.isEmpty()) return;
+        if (data.isEmpty())
+            return;
         int rowCount = data.get(0).getValues().size();
         int start = Math.max(0, rowCount - n);
         printRows(start, rowCount);
@@ -195,6 +201,51 @@ public class Dataframe {
     public double getColumnAverage(int index) throws IllegalArgumentException {
         return data.get(index).getAverage();
     }
+    /**
+     * Create a new dataframe with selection of lines
+     * 
+     * @param indexes list of lines indexes to keep
+     * @return new dataframe with selection of lines
+     */
+    public Dataframe selectLines(List<Integer> indexes){
+        List<Column<?>> selection = new ArrayList<>();
+
+        for (int i=0;i< getData().size(); i++){
+            Column <?> colOriginal = getData().get(i);
+            Column <?> colNew = new Column<>(colOriginal.getName(), colOriginal.getType());
+            List <Object> list = new ArrayList<>();
+
+            for (int j=0; j < colOriginal.getValues().size(); j++){
+                if (indexes.contains(j)){
+                    list.add(colOriginal.getValue(j));
+                }
+            }
+
+            ((Column<Object>) colNew).setValues(list);
+            selection.add(colNew);
+        }
+
+        return new Dataframe(selection);
+    }
+
+    /**
+     * Create a new dataframe with selection of columns
+     * 
+     * @param columnNames list of the names of columns to keep
+     * @return new dataframe with columns selected
+     */
+    public Dataframe selectColumns(List<String> columnNames) {
+        List<Column<?>> selection = new ArrayList<>();
+
+        for (int i = 0; i < getData().size(); i++) {
+            Column<?> col = getData().get(i);
+            if (columnNames.contains(col.getName())) {
+                selection.add(col);
+            }
+        }
+
+        return new Dataframe(selection);
+    }
 
     public List<Column<?>> getData() {
         return data;
@@ -202,6 +253,21 @@ public class Dataframe {
 
     public void setData(List<Column<?>> data) {
         this.data = data;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o)
+            return true;
+        if (!(o instanceof Dataframe))
+            return false;
+        Dataframe dataframe = (Dataframe) o;
+        return this.getData().equals(dataframe.getData());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(data);
     }
 
 }
