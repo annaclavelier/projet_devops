@@ -131,10 +131,34 @@ Le fichier ci.yml configure aussi dynamiquement les credentials Maven (settings.
 
 ## 4.6 Livraison continue avec Docker
 
-Une image Docker démonstrative est générée automatiquement à chaque push sur `main`.  
-Elle contient un exécutable qui démontre les principales fonctionnalités de la bibliothèque.
+### Contenu de l’image
 
-Docker Hub : [https://hub.docker.com/r/annaclavelier/pandas-java-demo](https://hub.docker.com/r/annaclavelier/pandas-java-demo)
+L’image Docker produite contient :
+
+- Le code compilé de notre bibliothèque Java (`pandas-java`)
+- Toutes les dépendances nécessaires (packagées via un "fat JAR")
+- Un fichier de démonstration CSV intégré dans l’image
+- Un programme `Demo.java` qui est exécuté automatiquement au démarrage du conteneur
+
+Programme de démonstration :
+- Charge un fichier CSV
+- Affiche les premières lignes du tableau
+- Calcule des statistiques (moyenne, min, max) sur certaines colonnes
+- Permet de visualiser rapidement les fonctionnalités principales de la bibliothèque
+
+### Informations sur l’image
+
+- **Nom de l’image Docker** : `annaclavelier/pandas-java-demo`
+- **Plateforme** : Java 17 + Maven
+- **Base utilisée** : `maven:3.9.0-eclipse-temurin-17` (pour le build) puis `eclipse-temurin:17` (pour l’exécution)
+- **Commande d’exécution par défaut** : `java -cp app.jar bababooeyz.Demo`
+
+### Dépôt Docker Hub
+
+L’image est disponible publiquement ici :  
+[https://hub.docker.com/r/annaclavelier/pandas-java-demo](https://hub.docker.com/r/annaclavelier/pandas-java-demo)
+
+### Comment tester l’image
 
 ```bash
 docker pull annaclavelier/pandas-java-demo
