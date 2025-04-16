@@ -328,6 +328,19 @@ public class Dataframe {
         return new Dataframe(selection);
     }
 
+    /**
+     * Filters the rows of the current {@link Dataframe} based on a Boolean condition.
+     * <p>
+         Only rows where the condition evaluates to {@code true} are retained.
+     * </p>
+     *
+     *
+     * @param condition A JavaScript expression to be evaluated for each row.
+     *                  Column names in the Dataframe can be used as variable names.
+     *                  The expression must return a Boolean value (true/false).
+     * @return A new {@link Dataframe} containing only the rows that match the condition.
+     *         If an error occurs, an {@code null} is returned.
+    */ 
     public Dataframe selectLinesBoolean(String condition){
         // Create a ContextFactory and get a Context from it
         ContextFactory contextFactory = new ContextFactory();
@@ -375,9 +388,9 @@ public class Dataframe {
             }
             return new Dataframe(filtered);
         }
-        catch (Exception ex) {
+        catch (Exception e) {
             System.err.println("❌ Failed to evaluate condition due to a top-level error:");
-            ex.printStackTrace();
+            e.printStackTrace();
             return null; // Return null if internal error
         } finally {
             if (context != null) {
