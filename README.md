@@ -27,9 +27,9 @@ La bibliothèque repose sur deux classes principales :
   - le **type Java** de la colonne (ex : `Integer.class`, `Double.class`, etc.)
 
 - **`Dataframe`**  
-  Représente une table de données structurée (comme dans `pandas`). Elle contient une **liste de colonnes** (`List<Column<?>>`) et fournit :
+  Représente une table de données structurée hétérogènes (comme dans `pandas`). Elle contient une **liste de colonnes** (`List<Column<?>>`) et fournit :
   - des constructeurs pour créer le tableau (par code ou depuis un fichier CSV)
-  - des méthodes pour afficher ou analyser les données
+  - des méthodes pour afficher, selectionner ou analyser les données
 
 Les colonnes peuvent contenir différents types (String, Integer, Double, Boolean), mais **une seule par colonne** (comme dans `pandas`). La classe `Dataframe` est donc **un tableau à deux dimensions**, avec un typage fort par colonne.
 
@@ -52,6 +52,7 @@ Les colonnes peuvent contenir différents types (String, Integer, Double, Boolea
 
 - **Structure interne**
   - Le dataframe repose sur un design proche de `pandas` :
+    - Colonne sont indexes, permettant avoir le même nom pour deux colonnes
     - Chaque colonne est représentée par une instance de `Column<T>`
     - Chaque colonne est typée (`Integer`, `Double`, `String`, etc.)
 
@@ -60,8 +61,9 @@ Les colonnes peuvent contenir différents types (String, Integer, Double, Boolea
 - Sélection de sous-ensembles :
   - Par index de lignes
   - Par labels de colonnes
-- Sélection conditionnelle avancée (ex: colonnes répondant à un critère)
-
+- Sélection conditionnelle avancée
+  - Prend une condition booléenne écrite dans le format de **JavaScript** à vérifier sur des colonnes
+  - La condition peut-être composée, par exemple: `age > 0 && name.StartsWith('A')`
 ---
 
 
