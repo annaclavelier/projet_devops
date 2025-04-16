@@ -127,6 +127,18 @@ Le fichier ci.yml configure aussi dynamiquement les credentials Maven (settings.
 
 ---
 
+## 4.6 Livraison continue avec Docker
+
+Une image Docker démonstrative est générée automatiquement à chaque push sur `main`.  
+Elle contient un exécutable qui démontre les principales fonctionnalités de la bibliothèque.
+
+Docker Hub : [https://hub.docker.com/r/annaclavelier/pandas-java-demo](https://hub.docker.com/r/annaclavelier/pandas-java-demo)
+
+```bash
+docker pull annaclavelier/pandas-java-demo
+docker run --rm annaclavelier/pandas-java-demo
+```
+
 ## 4.7 Infrastructure-as-Code et Cloud (Terraform + Google Cloud)
 
 Nous avons mis en place une **machine virtuelle dans Google Cloud Platform** à l’aide de Terraform :
